@@ -1,0 +1,348 @@
+{
+	// Place your global snippets here. Each snippet is defined under a snippet name and has a scope, prefix, body and 
+	// description. Add comma separated ids of the languages where the snippet is applicable in the scope field. If scope 
+	// is left empty or omitted, the snippet gets applied to all languages. The prefix is what is 
+	// used to trigger the snippet and the body will be expanded and inserted. Possible variables are: 
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. 
+	// Placeholders with the same ids are connected.
+	// Example:
+	// "Print to console": {
+	// 	"scope": "javascript,typescript",
+	// 	"prefix": "log",
+	// 	"body": [
+	// 		"console.log('$1');",
+	// 		"$2"
+	// 	],
+	// 	"description": "Log output to console"
+	// }
+
+
+	"Print to console": {
+		"scope": "javascript,typescript",
+		"prefix": "log",
+		"body": [
+			"console.log('$1');",
+			"$2"
+		],
+		"description": "Log output to console"
+	}, 
+
+	"text to speach":{
+		"scope": "python,ipynb",
+		"prefix": "texttospeach",
+		"body": [
+						
+			"import pyttsx3",
+			"text = pyttsx3.init()",
+			"text.setProperty('rate', 180)",
+			"text.setProperty('volume', 1) # 0 to 1",
+
+			"s = 'The code is Compiled'",
+
+			"text.say(s)",
+			"text.runAndWait()"
+		],
+		"description": "text to speach"
+	}
+	, 
+
+	"import modules":{
+		"scope": "python,ipynb",
+		"prefix": "importpython",
+		"body": [
+						
+			"import pandas as pd",
+			"import numpy as np",
+			"import seaborn as sns",
+			"import matplotlib.pyplot as plt",
+			"import warnings",
+			"warnings.filterwarnings('ignore')"
+
+		],
+		"description": "text to speach"
+	},
+
+	
+	
+
+	"plot images":{
+		"scope": "python,ipynb",
+		"prefix": "plotimages",
+		"body": [
+			"fig = plt.figure(figsize=(6,6))",
+			"col = 6",
+			"rows = 6",
+			"for i in range(1, col*rows +1):",
+				"plt.axis('off')",
+				"plt.tight_layout()",
+				"plt.title(y_train[i])",
+				"fig.add_subplot(rows, col, i)",
+				"plt.imshow(X_train[i], cmap = 'gray')",
+			"plt.show()"
+			
+		],
+		"description": "text to speach"
+	},
+
+	"normalize images":{
+		"scope": "python,ipynb",
+		"prefix": "notmalizeimages",
+		"body": [
+			"X_train = X_train.astype('float32')",
+			"X_test = X_test.astype('float32')",
+
+			"X_train /= 255",
+			"X_test /= 255"
+			
+		],
+		"description": "text to speach"
+	},
+
+	"onehotencode":{
+		"scope": "python,ipynb",
+		"prefix": "onehotencodecnn",
+		"body": [
+			"from tensorflow.keras.utils import to_categorical",
+
+			"print('Shape of y_train Before:', y_train.shape)",
+			"print('One value of y_train before:', y_train[0])",
+
+			"y_train = to_categorical(y_train, num_classes=10)",
+			"y_test = to_categorical(y_test, num_classes=10)",
+			
+			"print('Shape of y_train After:', y_train.shape)",
+			"print('One value of y_train After:', y_train[0])",
+
+		],
+		"description": "text to speach"
+	},
+
+	"import cnn":{
+		"scope": "python,ipynb",
+		"prefix": "importcnnmodel",
+		"body": [
+			"import tensorflow as tf",
+			"from tensorflow.keras.layers import Conv2D, Flatten, Dense, Dropout, MaxPooling2D",
+			"from tensorflow.keras.models import Sequential",
+			
+			"tf.keras.backend.clear_session()",
+
+			"model = Sequential()",
+
+			"model.add(Conv2D(filters=32, kernel_size=3, activation='relu', input_shape=($1, $2, $3)))",
+
+			"model.add(Conv2D(filters=32, kernel_size=3, activation='relu'))",
+
+			"model.add(tf.keras.layers.BatchNormalization())",
+
+			"model.add(MaxPooling2D(pool_size=(2, 2)))",
+
+			"# Apply Dropout with 0.2 probability", 
+			"model.add(Dropout(rate=0.2))",
+
+			"# Flatten the layer",
+			"model.add(Flatten())",
+
+			"# Add Fully Connected Layer with 128 units and activation function as 'relu'",
+			"model.add(Dense($4, activation='relu'))",
+
+			"#Add Fully Connected Layer with 10 units and activation function as 'softmax'",
+			"model.add(Dense(10, activation='softmax'))",
+
+			"# Compile the model",
+			"model.compile(loss='categorical_crossentropy', metrics=['accuracy'], optimizer='adam')",
+			"# Use earlystopping",
+			"import tensorflow",
+			"from tensorflow.keras.callbacks import ModelCheckpoint, EarlyStopping",
+			"callback = tensorflow.keras.callbacks.EarlyStopping(monitor='val_accuracy', patience=2, min_delta=0.01)",
+			"# Fit the model",
+			"model.fit(x=X_train, y=y_train, batch_size=32, epochs=1, validation_data=(X_test, y_test), callbacks=[callback])",
+			"# let`s train for few more epochs to improve the accuracy",
+			"model.fit(x_train, y_train, batch_size = 32, epochs= 20, initial_epoch=5, validation_data=(x_test, y_test))",
+			"model.evaluate(X_train, y_train)",
+			"model.evaluate(X_test, y_test)", 
+			"CNN_train_acc = model.evaluate(x_train, y_train)[1]",
+			"CNN_test_acc = model.evaluate(x_test, y_test)[1]",
+			"CNN_loss = model1.evaluate(x_test, y_test)[0]",
+			"final_df.loc[len(final_df.index)] = ['CNN' , CNN_train_acc, CNN_test_acc, CNN_loss]",
+			"final_df"
+
+
+
+		],
+		"description": "text to speach"
+	}, 
+	"predict cnn":{
+		"scope": "python,ipynb",
+		"prefix": "cnnprediction",
+		"body": [
+			"pred_image = cv2.imread('E:\\CNN_New\\project_2\\Prediction.jpg)",
+			"pred_lable = model1.predict(pred_image.reshape(1, 224, 224, 3))",
+			"print(pred_lable.argmax())",
+			"print(pred_lable)",
+			"plt.imshow(pred_image)",
+			"title = 'Predicted Class = ' + str(pred_lable.argmax())",
+			"plt.title(title)",
+
+
+		],
+		"description": "text to speach"
+	},	
+	"cnnactual predict":{
+		"scope": "python,ipynb",
+		"prefix": "cnnactualvspredict",
+		"body": [
+			"# Now lets look at the misclassified images, there true values and predicted values",
+			"y_pred_all = model.predict(X_test)",
+			"fig=plt.figure(figsize=(25, 16))",
+			"columns = 25",
+			"rows = 16",
+			"i=1",
+			"for j in range(len(y_test)):",
+				"if y_test[j].argmax() != y_pred_all[j].argmax():",
+					"fig.add_subplot(rows, columns, i)",
+					"plt.tight_layout()",
+					"t = str(str(y_test[j].argmax())+'!='+str(y_pred_all[j].argmax()))",
+					"plt.title(t)",
+					"plt.imshow(X_test[j], cmap='gray')",
+					"plt.axis('off')",
+					"i=i+1",
+					"if i == 257:",
+						"break",
+
+		"plt.show() ",
+
+
+		],
+		"description": "text to speach"
+	},
+	
+	"import traintestsplit":{
+		"scope": "python,ipynb",
+		"prefix": "traintestsplit",
+		"body": [
+				"from sklearn.model_selection import train_test_split",
+				"x_train, x_test, y_train, y_test =train_test_split(x,y, random_state=1)"
+
+		],
+		"description": "train_test_split"
+	},
+	
+	"import metrics":{
+		"scope": "python,ipynb",
+		"prefix": "importmetrics",
+		"body": [
+				"from sklearn import metrics"
+		],
+		"description": "text to speach"
+	},
+	
+	"import nlp":{
+		"scope": "python,ipynb",
+		"prefix": "importnlp",
+		"body": [
+			"from textblob import TextBlob, Word",
+			"import nltk ",
+			"from nltk.stem.snowball import SnowballStemmer"
+
+
+		],
+		"description": "text to speach"
+	},
+	
+	"kaggle":{
+		"scope": "python,ipynb",
+		"prefix": "kaggledatasearch",
+		"body": [
+			
+			"!kaggle datasets list -s $1",
+			"#!kaggle datasets download -d  "
+
+		],
+		"description": "text to speach"
+	},
+
+	"kaggle2":{
+		"scope": "python,ipynb",
+		"prefix": "kagglecodesearch",
+		"body": [
+			
+			"!kaggle kernels list -s $1",
+			"# !kaggle kernels pull REFERENCE -p FOLDER_NAME -m"
+
+		],
+		"description": "text to speach"
+	},
+
+	"kaggle3":{
+		"scope": "python,ipynb",
+		"prefix": "kaggledatasearch",
+		"body": [
+			
+			"!kaggle datasets list -s $1",
+			"# !kaggle datasets download -d  ",
+
+			"# import zipfile",
+			"# with zipfile.ZipFile('', 'r') as zip_ref:",
+			"#     zip_ref.extractall('e:\\core_code')",
+				
+			"# import os",
+			"# os.listdir()",
+			
+			"data = pd.read_csv('.csv')",
+			"data.sample(5)"
+			
+
+		],
+		"description": "text to speach"
+	},
+
+	"zipfiles":{
+		"scope": "python,ipynb",
+		"prefix": "importzip",
+		"body": [
+			
+			"import zipfile",
+			"with zipfile.ZipFile('.zip', 'r') as zip_ref:",
+	    			"zip_ref.extractall('e:\\')"
+
+		],
+		"description": "text to speach"
+	},
+	"sample":{
+		"scope": "python,ipynb",
+		"prefix": "",
+		"body": [
+			
+			"sample"
+
+		],
+		"description": "text to speach"
+	},
+	"read_csvzip":{
+		"scope": "python,ipynb",
+		"prefix": "read_csvzip",
+		"body": [
+			
+			"data  = pd.read_csv('E:\\LOCATION.zip', compression='zip', header=0, sep=',', quotechar='", "') # reading the content directly from zip file"
+
+
+		],
+		"description": "text to speach"
+	},
+
+	"classification_report":{
+		"scope": "python,ipynb",
+		"prefix": "classificationreport",
+		"body": [
+			
+			"from sklearn.metrics import classification_report, confusion_matrix",
+			"print(classification_report(y_test, y_pred_class))"
+
+
+		],
+		"description": "text to speach"
+	},
+	
+
+}
